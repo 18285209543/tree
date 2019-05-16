@@ -71,16 +71,20 @@ export default {
     }
   },
   methods: {
+		// 递归
     initTreeData() {
-      console.log(this.list);
       console.log("处理前的:", JSON.parse(JSON.stringify(this.list)));
       // 这里一定要转化，要不然他们的值监听不到变化
-      let tempData = JSON.parse(JSON.stringify(this.list));
+			let tempData = JSON.parse(JSON.stringify(this.list));
+			// 处理数据
       let reduceDataFunc = (data, level) => {
         data.map((m, i) => {
+					console.log(m)
+					// 添加显示还是隐藏的功能
           m.isExpand = false;
           m.children = m.children || [];
-          m.level = level;
+					m.level = level;
+					// level等于1时34 否则就是50
           m.bLeft = level === 1 ? 34 : (level - 2) * 16 + 34;
           m.Experience = m.Experience || "无";
           if (m.children.length > 0) {
@@ -102,7 +106,7 @@ export default {
     },
     // 展开
     handlerExpand(m) {
-			console.log(m)
+			// console.log(m)
       this.$emit("handlerExpand", m);
     }
   },
